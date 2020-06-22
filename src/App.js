@@ -1,17 +1,14 @@
 import React from 'react';
+import AppRouter from './Router.jsx';
 import './App.css';
-import Board from './Board.jsx';
-import Login, {useAuth} from './login.jsx';
 
 
 function App() {
-  let layout = require('./initialLayout.json');
-  
+  let layout = require('./initialLayout.json');  
   return (
-    <div className="App">
-      <Board layout={layout} />
-    </div>
+    <AppRouter layout={layout}/>
   );
+
 }
 
 export default App;

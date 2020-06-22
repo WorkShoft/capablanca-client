@@ -18,7 +18,6 @@ function Board(props){
   let currentLayoutRows = layout.map((row, y) => <div className="board-row" style={{ height: pieceSize }}> {row.map((piece, x) => <Piece pieceSize={pieceSize} pieceType={piece.pieceType} pieceColor={piece.pieceColor} x={x} y={y}/>)}</div>);
 
   return <div id="board" style={boardStyle}>{currentLayoutRows}</div>; 
-
 }
 
 export default Board;

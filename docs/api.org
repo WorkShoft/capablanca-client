@@ -2,17 +2,15 @@
 #+OPTIONS: *:nil
 #+OPTIONS: ^:nil
 
-
-
-| METHOD              | DESCRIPTION                                | ENDPOINT                       |
-|---------------------+--------------------------------------------+--------------------------------|
-| createGame()        | Create a game                              | /chess/game/                   |
-| getGame(game_uuid)  | Get a game                                 | chess/game/?uuid={{GAME_UUID}} |
-| createPlayer()      | Create a player                            | /chess/player/                 |
-| movePiece()         | Move a piece                               | /chess/game/board/move/        |
-| joinGame(game_uuid) | Join a game                                | /chess/game/join/              |
-| getAccessToken()    | Get an access / refresh token pair         | /api/token/                    |
-| refreshToken()      | Refresh access token using a refresh token | /api/token/refresh/            |
-|---------------------+--------------------------------------------+--------------------------------|
+| METHOD              | DESCRIPTION                                | ENDPOINT                        |
+|---------------------+--------------------------------------------+---------------------------------|
+| createGame()        | Create a game                              | /chess/game/                    |
+| getGame(game_uuid)  | Get a game                                 | /chess/game/?uuid={{GAME_UUID}} |
+| createPlayer()      | Create a player                            | /chess/player/                  |
+| movePiece()         | Move a piece                               | /chess/game/board/move/         |
+| joinGame(game_uuid) | Join a game                                | /chess/game/join/               |
+| getAccessToken()    | Get an access / refresh token pair         | /api/token/                     |
+| refreshToken()      | Refresh access token using a refresh token | /api/token/refresh/             |
+|---------------------+--------------------------------------------+---------------------------------|
 
 

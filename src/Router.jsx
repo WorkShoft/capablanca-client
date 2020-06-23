@@ -7,7 +7,8 @@ import {
   Redirect
 } from "react-router-dom";
 
-import Login, {useAuth, logout} from './login.jsx';
+import Login from './Login.jsx';
+import {useAuth, logout} from './auth.jsx';
 
 
 function AppRouter(props){
@@ -23,10 +24,10 @@ function AppRouter(props){
 	            </>}
         {logged && <>
 	             <Route exact path="/" render={() =>
-                                             <div>
-                                               <button onClick={logout}>Logout</button><br/>
-                                               <Board layout={layout} />
-                                             </div>}/>
+                                                   <div>
+                                                     <button onClick={logout}>Logout</button><br/>
+                                                     <Board layout={layout} />
+                                                   </div>}/>
                      <Redirect to="/"/>
                    </>
         }

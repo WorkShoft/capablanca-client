@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState, setState } from 'react';
+import {createGame, getGame, movePiece, joinGame} from './api.jsx';
 import Piece from './Piece.jsx';
 
 
 function Board(props){
+  const [game, setGame] = useState({game: createGame()});
   const pieceSize = 32; // width and height in px
 
   const boardStyle = {

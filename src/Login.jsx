@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import {createAuthProvider} from 'react-token-auth';
+import {login, API_URL} from './auth.jsx';
 
 
-const API_URL = 'http://127.0.0.1:8000';
 const ACCESS_TOKEN_URL = `${API_URL}/api/token/`;
-const REFRESH_TOKEN_URL = `${API_URL}/api/token/refresh/`;
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -44,16 +42,5 @@ function Login() {
            <button type="submit">Submit</button>
          </form>;
 };
-
-
-export const [useAuth, authFetch, login, logout] =
-  createAuthProvider({
-    accessTokenKey: 'access',
-    onUpdateToken: (token) => fetch(REFRESH_TOKEN_URL, {
-      method: 'POST',
-      body: token.refreshToken
-    })
-      .then(r => r.json())
-  });
 
 export default Login;

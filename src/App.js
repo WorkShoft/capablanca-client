@@ -1,6 +1,6 @@
 import React from 'react';
 import AppRouter from './Router.jsx';
-import './App.css';
+require('./App.css');
 
 
 function App() {

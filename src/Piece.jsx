@@ -1,7 +1,6 @@
 import React from 'react';
 
-import transparent from './img/transparent.png';
-
+import transparent from './img/transparent.png'
 
 function Piece(props){
   const {pieceSize} = props;

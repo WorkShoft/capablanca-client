@@ -15,16 +15,20 @@ const jsonHeaders = {
 
 
 const authFetchCall = (method, endpoint, ...parameters) => {
-    authFetch(`${API_URL}${endpoint}`, {
-    method: method,
+  return authFetch(`${API_URL}${endpoint}`, {
+      method: method,
       body: JSON.stringify(...parameters),
       headers: jsonHeaders,
   })
-    .then(r => r.json());
+    .then(r => r.json())
 };
 
 /* API calls */ 
-const createGame = (preferredColor) => authFetchCall("POST", createGameEndpoint, preferredColor);
+
+const createGame = async (preferredColor) => {
+  return authFetchCall("POST", createGameEndpoint, preferredColor);
+}
+
 const getGame = (gameUuid) => {
   GAME_UUID = gameUuid;
   return authFetchCall("GET", getGameEndpoint);

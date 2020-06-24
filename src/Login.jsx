@@ -16,7 +16,6 @@ function Login() {
   
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
 
     fetch(ACCESS_TOKEN_URL, {
       method: "POST",

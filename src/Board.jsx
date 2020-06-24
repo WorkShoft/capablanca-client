@@ -63,23 +63,31 @@ function getLayoutFromFen(boardFen){
 
 function Board(props){
   const [game, setGame] = useState({});
+  const [layout, setLayout] = useState({});
   const pieceSize = 32; // width and height in px
 
+  /* Load game asynchronously */
   useEffect(() => {
     const loadGame = async() => {
       const gameData = await createGame();
-      setGame(gameData);
+      setGame(gameData);     
     };
 
     loadGame();
   }, []);
 
+  /* Load layout after the game data has been loaded */
   useEffect(() => {
-    if(game.hasOwnProperty("board")){
-      const boardFen = game.board.board_fen;      
-    }
-  }
-           );
+    const loadLayout = async() => {
+      if(game.hasOwnProperty("board")){
+        const boardFen = await game.board.board_fen;
+        const layoutData = await getLayoutFromFen(boardFen);
+        setLayout(layoutData);
+      }
+    };
+
+    loadLayout();
+  }, [game]);
 
   const boardStyle = {
     boxShadow: '1px 3px 7px 2px black',
@@ -90,11 +98,9 @@ function Board(props){
     height: pieceSize * 8
   };
 
+   let currentLayoutRows = Object.values(layout).map((row) => <div className="board-row" style={{ height: pieceSize }}> {row.map((piece) => <Piece pieceSize={pieceSize} pieceType={piece.pieceType} pieceColor={piece.pieceColor} x={piece.x} y={piece.y}/>)}</div>);
 
-  let {layout} = props;
-  let currentLayoutRows = layout.map((row, y) => <div className="board-row" style={{ height: pieceSize }}> {row.map((piece, x) => <Piece pieceSize={pieceSize} pieceType={piece.pieceType} pieceColor={piece.pieceColor} x={x} y={y}/>)}</div>);
-
-  return <div id="board" style={boardStyle}>{currentLayoutRows}</div>; 
+  return <div id="board" style={boardStyle}>{currentLayoutRows}</div>;
 }
 
 export default Board;

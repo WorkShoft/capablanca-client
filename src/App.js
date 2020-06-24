@@ -6,9 +6,9 @@ require('./App.css');
 
 
 function App() {
-  let layout = require('./initialLayout.json');  
+  //let layout = require('./initialLayout.json');  
   return (
-    <AppRouter layout={layout}/>
+    <AppRouter />
   );
 
 }

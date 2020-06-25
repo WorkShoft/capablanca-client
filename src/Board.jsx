@@ -94,8 +94,7 @@ function Board(props){
     margin: '0 auto',
     marginTop: '5px',
     border: '1px solid #3c415e',
-    width: pieceSize * 8,
-    height: pieceSize * 8
+    width: pieceSize * 8 + 2,
   };
 
    let currentLayoutRows = Object.values(layout).map((row) => <div className="board-row" style={{ height: pieceSize }}> {row.map((piece) => <Piece pieceSize={pieceSize} pieceType={piece.pieceType} pieceColor={piece.pieceColor} x={piece.x} y={piece.y}/>)}</div>);

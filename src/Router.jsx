@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board.jsx';
+import Menu from './Menu.jsx';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,13 +24,17 @@ function AppRouter(props){
                       <Redirect to="/login"/>
 	            </>}
         {logged && <>
-	             <Route exact path="/" render={() =>
-                                                   <div>
-                                                     <button onClick={logout}>Logout</button><br/>
-                                                     <Board layout={layout} />
-                                                   </div>}/>
-                     <Redirect to="/"/>
-                   </>
+                     <Redirect to="/menu"/>
+          <Route exact path="/menu" component={Menu} />
+	  
+	  <Route exact path="/game" render={() =>
+                                            <div>
+                                              <button onClick={logout}>Logout</button><br/>
+                                              <Board layout={layout} />
+                                            </div>
+                                           }
+          />
+        </>	
         }
       </Switch>
     </Router>

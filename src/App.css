@@ -29,6 +29,7 @@ label, .menu button {
     margin-top: 20px;
     background-size: 100%;
     padding: 0px;
+    width: 310px;
 }
 
 .label-input {

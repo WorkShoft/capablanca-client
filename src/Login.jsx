@@ -28,7 +28,7 @@ function Login() {
       .then(token => login(token));
   };
   
-  return <form onSubmit={onSubmit} className="col-lg-3 mx-auto d-flex justify-content-left card" id="loginMenu">
+  return <form onSubmit={onSubmit} className="mx-auto d-flex justify-content-left card" id="loginMenu">
            <h1 className="text-center text-dark card-header">CHESS</h1><br/>
            <div className="col-lg-12 card-body">
              <div className="label-input">               

@@ -42,5 +42,37 @@ label, .menu button {
     padding: 10px;
 }
 
+.board-square{
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    color: #26589F;
+    font-family: 'PT Sans Narrow',sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.42rem;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0;
+    border: 0;
+    padding: 0;
+}
 
+.board-square:focus img {
+    box-shadow: 0px 0px 5px 3px orange;
+    position: relative;
+    z-index: 1;
+}
 
+.board-square-container {
+    position: relative;
+}
+
+.board-square-container > .board-square:focus {
+    box-shadow: 0px 0px 5px 3px orange;
+    z-index: 1;
+    outline:none;
+}

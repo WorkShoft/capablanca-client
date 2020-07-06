@@ -5,9 +5,6 @@ let GAME_UUID = '';
 const createGameEndpoint = '/chess/game/';
 const getUnfinishedGamesEndpoint = '/chess/game/get_unfinished_games/'
 let getGameEndpoint = `/chess/game/${GAME_UUID}`;
-let movePieceEndpoint = `/chess/game/${GAME_UUID}/move/`;
-let joinGameEndpoint = `/chess/game/${GAME_UUID}/join/`;
-
 
 const jsonHeaders = {
   'Content-Type': 'application/json',
@@ -38,14 +35,13 @@ const getGame = (gameUuid) => {
 };
 
 const movePiece = async (data, gameUuid) => {
-  GAME_UUID = gameUuid;
-  movePieceEndpoint = `/chess/game/${GAME_UUID}/move/`;
+  const movePieceEndpoint = `/chess/game/${gameUuid}/move/`;
   return authFetchCall("PUT", movePieceEndpoint, data);
 };
 
 const joinGame = (gameUuid, preferredColor) => {
-  GAME_UUID = gameUuid;
-  authFetchCall("POST", joinGameEndpoint, gameUuid, preferredColor);
+  const joinGameEndpoint = `/chess/game/${gameUuid}/join/`;
+  authFetchCall("PUT", joinGameEndpoint, {"preferred_color": preferredColor});
 };
 
 const getUnfinishedGames = () => {

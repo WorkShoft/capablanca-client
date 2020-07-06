@@ -8,7 +8,7 @@ import {logout} from "./auth.jsx";
 function Menu(props){
   return (
     <div className="menu mx-auto">           
-      <div className="buttonList col-lg-3 mx-auto">
+      <div className="buttonList col-lg-2 mx-auto">
         <Link to="/game">
           <button className="col-lg-12 text-left">Create game</button>
         </Link>

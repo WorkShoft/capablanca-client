@@ -11,22 +11,23 @@ label, .menu button {
 
 .menu button {
     width: 100%;
-    height: 70px;
+    height: 75px;
     background: white;
+    color: black;
 }
 
 .menu button:hover {
     background: #f2f2f2ee;
 }
 
-.buttonList{
+.buttonList {
     background: url("img/black-white-modern-home-chess.jpg") no-repeat; 
     background-size: cover;
     padding: 0px;
+    margin-top: 52px;
 }
 
 #loginMenu {
-    margin-top: 20px;
     background-size: 100%;
     padding: 0px;
     width: 310px;
@@ -42,7 +43,7 @@ label, .menu button {
     padding: 10px;
 }
 
-.board-square{
+.board-square {
     background: none repeat scroll 0 0 transparent;
     border: medium none;
     border-spacing: 0;
@@ -75,4 +76,24 @@ label, .menu button {
     box-shadow: 0px 0px 5px 3px orange;
     z-index: 1;
     outline:none;
+}
+
+#gameList {
+    background: url("img/chess-knight-vector-clipart.png") no-repeat; 
+    background-size: cover;
+    background-position: center; 
+}
+
+#gameList * {
+    font-size: 20px;
+    color: black;
+}
+
+#gameList tr, #gameList thead {
+    background: #fffffff8;
+}
+
+
+#gameList tr:hover, #gameList thead:hover {
+    background: #ffffffdd;    
 }

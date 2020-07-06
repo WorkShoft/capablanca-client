@@ -6,11 +6,9 @@ require('./App.css');
 
 
 function App() {
-  //let layout = require('./initialLayout.json');  
   return (
     <AppRouter />
   );
-
 }
 
 export default hot(App);

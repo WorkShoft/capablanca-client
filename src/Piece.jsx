@@ -24,9 +24,12 @@ function Piece(props){
   }
   
   if(pieceType === ""){          
-    return <div style={{display: "inline-block"}} class="board-square-container">
-      <button square={square} className="board-square" onClick={() => setFromToSquares(square)} style={{position: "relative", width: `${pieceSize}px`, height: `${pieceSize}px`, backgroundColor: backgroundColor}}>
+    return <div style={{display: "inline-block"}} className="board-square-container">
+      
+             <button square={square} className="board-square" onClick={() => setFromToSquares(square)} style={{position: "relative", width: `${pieceSize}px`, height: `${pieceSize}px`, backgroundColor: backgroundColor}}>
+               <img alt=""/>
       </button>
+
     </div>;    
   }
 
@@ -42,8 +45,8 @@ function Piece(props){
     style.backgroundPosition = `-${backgroundX}px -${backgroundY}px`;
     
     return <div style={{height: pieceSize, display: 'inline-block', backgroundColor: backgroundColor}}>
-      <button square={square} className="board-square" onFocus={() => setFromToSquares(square)}>
-	<img src={transparent} alt="Transparent background" style={{...style, position: 'relative', top: top, left: left, width: `${pieceSize}px`, height: `${pieceSize}px`}} />
+      <button square={square} className="board-square" onClick={() => setFromToSquares(square)}>
+	<img src={transparent} alt="Chess piece" style={{...style, position: 'relative', top: top, left: left, width: `${pieceSize}px`, height: `${pieceSize}px`}} />
       </button>
     </div>;
   }

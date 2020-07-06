@@ -1,6 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
-import {createGame} from './api.jsx';
+import React, {useEffect, useState} from 'react';
+import {createGame, movePiece} from './api.jsx';
 import Piece from './Piece.jsx';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function getPieceTypeAndColor(symbol){
@@ -87,14 +90,15 @@ function Board(props){
   const {whites_player} = game;
   const {blacks_player} = game;
   const {username: whites_username} = whites_player || "???";
-  const {username: blacks_username} = blacks_player || "???";
-  
+  const {username: blacks_username} = blacks_player || "???";  
   const pieceSize = 36; // width and height in px
+
+  const notify = (detail) => toast(detail);
 
   /* Load game asynchronously */
   useEffect(() => {
     const loadGame = async() => {
-      const gameData = await createGame();
+      const gameData = await createGame({"preferred_color": "white"});
       setGame(gameData);     
     };
 
@@ -114,30 +118,49 @@ function Board(props){
     loadLayout();
   }, [game]);
 
+
+  useEffect(() => {
+    /* Request move and reset */
+    if (fromSquare !== "" && toSquare !== "") {
+      const moveData = {
+        from_square: fromSquare,
+        to_square: toSquare
+      };
+      
+      const callMovePiece = async() => {
+        const response = await movePiece(moveData, game.uuid);
+
+	if(response.board){
+          const boardFen = await response.board.board_fen;
+          const layoutData = await getLayoutFromFen(boardFen);
+	  setLayout(layoutData);        
+	}
+
+	else if(response.detail){
+	  notify(response.detail);
+	}
+      };
+
+      callMovePiece();
+      setToSquare("");
+      setFromSquare(toSquare);
+    };
+  }, [game.uuid, fromSquare, toSquare]);
+
   const setFromToSquares = (square) => {
     /* 
       setFromSquare -> setToSquare -> reset and setFromSquare...
     */
 
-    console.log(square);
-    console.log(fromSquare === "");
     
     if(fromSquare === ""){
-      console.log("fromSquare was unset");
       setFromSquare(square);    
     }
 
     else if (toSquare === ""){
-      console.log("toSquare was unset");
-      setToSquare(square);    
-    }
-
-    /* Reset */
-    else {
-      setToSquare("");
-      setFromSquare(square);
-    }
-  };
+      setToSquare(square);
+    }         
+};
 
   const boardStyle = {
     boxShadow: '1px 3px 7px 2px black',
@@ -146,16 +169,15 @@ function Board(props){
     width: pieceSize * 8,
   };
 
-  console.log(game);
-
   let currentLayoutRows = Object.values(layout).map((row) => <div key={row.id} className="board-row" style={{ height: pieceSize }}> {row.map((piece) => <Piece key={piece.id} square={piece.square} pieceSize={pieceSize} pieceType={piece.pieceType} pieceColor={piece.pieceColor} x={piece.x} y={piece.y} setFromToSquares={setFromToSquares} />)}
   </div>);
 
   return <div>
+           <ToastContainer />
            <h4 className="text-center">{whites_username || "???"} vs {blacks_username || "???"}</h4><br/>
            <div id="board" style={boardStyle}>             
-           {currentLayoutRows}
-           </div>;
+             {currentLayoutRows}
+           </div>;           
          </div>;
 }
 

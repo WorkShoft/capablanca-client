@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from './Board.jsx';
 import Menu from './Menu.jsx';
+import GameList from './GameList.jsx';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,16 +26,21 @@ function AppRouter(props){
 	            </>}
         {logged && <>
                      <Redirect to="/menu"/>
-          <Route exact path="/menu" component={Menu} />
-	  
-	  <Route exact path="/game" render={() =>
-                                            <div>
-                                              <button onClick={logout}>Logout</button><br/>
-                                              <Board layout={layout} />
-                                            </div>
-                                           }
-          />
-        </>	
+                     <Route exact path="/menu" component={Menu} />	  
+	             <Route exact path="/game" render={() =>
+                                                       <div>
+                                                       <button onClick={logout}>Logout</button>                                                         
+                                                         <Board layout={layout} />
+                                                       </div>
+                                                      }
+                     />
+                     <Route exact path="/gamelist" render={() => <div>
+                                                       <button onClick={logout}>Logout</button><br/>
+                                                       <GameList />
+                                                     </div>
+                                             }
+                      />
+                   </>	
         }
       </Switch>
     </Router>

@@ -9,6 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 
+import Nav from './Nav.jsx';
 import Login from './Login.jsx';
 import {useAuth, logout} from "../api/auth.jsx";
 
@@ -19,28 +20,29 @@ function AppRouter(props){
   
   return (
     <Router>
+      <Nav/>
       <Switch>
 	{!logged && <>
-	              <Route path="/login" component={Login}/>
-                      <Redirect to="/login"/>
-	            </>}
+	  <Route path="/login" component={Login}/>
+          <Redirect to="/login"/>
+	</>}
         {logged && <>
-                     <Redirect to="/menu"/>
-                     <Route exact path="/menu" component={Menu} />	  
-	             <Route exact path="/game/:uuid?" render={routeProps =>
-                                                       <div>
-							 <button onClick={logout}>Logout</button>
-                                                         <Board layout={layout} {...routeProps}/>
-                                                       </div>
-                                                      }
-                     />
-                     <Route exact path="/gamelist" render={() => <div>
-                                                       <button onClick={logout}>Logout</button><br/>
-                                                       <GameList />
-                                                     </div>
-                                             }
-                      />
-                   </>	
+          <Redirect to="/menu"/>
+          <Route exact path="/menu" component={Menu} />	  
+	  <Route exact path="/game/:uuid?" render={routeProps =>
+            <div>
+	      <button onClick={logout}>Logout</button>
+              <Board layout={layout} {...routeProps}/>
+            </div>
+          }
+          />
+          <Route exact path="/gamelist" render={() => <div>
+            <button onClick={logout}>Logout</button><br/>
+            <GameList />
+          </div>
+          }
+          />
+        </>	
         }
       </Switch>
     </Router>

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import {login, API_URL} from '../api/auth.jsx';
 
 
@@ -12,7 +13,7 @@ function Login() {
 
   const onChange = ({target: {name, value}}) => {
     setCredentials({...credentials, [name]: value});
-    };
+  };
   
   const onSubmit = (e) => {
     e.preventDefault();
@@ -28,30 +29,31 @@ function Login() {
       .then(token => login(token));
   };
   
-  return <form onSubmit={onSubmit} className="mx-auto d-flex justify-content-left card" id="loginMenu">
-           <h1 className="text-center text-dark card-header">CHESS</h1><br/>
-           <div className="col-lg-12 card-body">
-             <div className="label-input">               
-	       <label htmlFor="username">Username</label>
-	       <input name="username"
-                      value={credentials.name}
-                      onChange={onChange}
-	              className="form-control"
-               />
-             </div>
-             <div className="label-input">
-	       <label htmlFor="password">Password</label>
-	       <input name="password"
-                      type="password"
-                      value={credentials.password}             
-                      onChange={onChange}
-	              className="form-control"
-               />
+  return <div>
+    <form onSubmit={onSubmit} className="mx-auto d-flex justify-content-left card col-lg-1" id="loginMenu">
+      <div className="col-lg-12 card-body text-center">
+	<div className="label-input">               
+	  <label htmlFor="username">Username</label>
+	  <input name="username"
+		 value={credentials.name}
+		 onChange={onChange}
+		 className="form-control"
+          />
+	</div>
+	<div className="label-input">
+	  <label htmlFor="password">Password</label>
+	  <input name="password"
+		 type="password"
+		 value={credentials.password}             
+		 onChange={onChange}
+		 className="form-control"
+          />
 
-             </div>
-               	     <button type="submit" className="col-lg-12 btn btn-primary">Log in</button>
-    </div>
-  </form>;
-};
+	</div>
+	<button type="submit" className="col-lg-12 btn btn-primary">Log in</button>
+      </div>
+    </form>;  
+  </div>};
+
 
 export default Login;

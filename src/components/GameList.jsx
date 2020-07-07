@@ -50,8 +50,8 @@ const GameList = () => {
     return <table className="col-lg-2 col-sm-6 col-9 table mx-auto text-center" id="gameList">
              <thead>
                <tr className="row">
-                 <th className="col-lg-6 col-6"><b>Whites</b></th>
-                 <th className="col-lg-6 col-6"><b>Blacks</b></th>
+                 <th className="col-lg-6 col-6"><b>White</b></th>
+                 <th className="col-lg-6 col-6"><b>Black</b></th>
                </tr>
              </thead>
              <tbody>

@@ -11,7 +11,7 @@ import {
 
 import Nav from './Nav.jsx';
 import Login from './Login.jsx';
-import {useAuth, logout} from "../api/auth.jsx";
+import {useAuth} from "../api/auth.jsx";
 
 
 function AppRouter(props){
@@ -20,7 +20,7 @@ function AppRouter(props){
   
   return (
     <Router>
-      <Nav/>
+      <Nav logged={logged} />
       <Switch>
 	{!logged && <>
 	  <Route path="/login" component={Login}/>
@@ -31,13 +31,11 @@ function AppRouter(props){
           <Route exact path="/menu" component={Menu} />	  
 	  <Route exact path="/game/:uuid?" render={routeProps =>
             <div>
-	      <button onClick={logout}>Logout</button>
-              <Board layout={layout} {...routeProps}/>
+              <Board layout={layout} {...routeProps} />
             </div>
           }
           />
           <Route exact path="/gamelist" render={() => <div>
-            <button onClick={logout}>Logout</button><br/>
             <GameList />
           </div>
           }

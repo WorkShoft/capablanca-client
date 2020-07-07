@@ -91,16 +91,24 @@ h1 {
     background-position: center; 
 }
 
-#gameList * {
+#gameList thead tr th {
     font-size: 20px;
-    color: black;
+    color: black;    ;
 }
 
-#gameList tr, #gameList thead {
+#gameList > tbody {
+    font-size: 16px;
+}
+
+#gameList tr {
     background: #fffffff8;
 }
 
 
-#gameList tr:hover, #gameList thead:hover {
+#gameList tr:hover {
     background: #ffffffdd;    
+}
+
+tbody a {
+    text-decoration: none !important;
 }

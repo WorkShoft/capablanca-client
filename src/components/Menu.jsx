@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Link
 } from "react-router-dom";
-import {logout} from "./auth.jsx";
+import {logout} from "../api/auth.jsx";
 
 function Menu(props){
   return (

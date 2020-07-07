@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {login, API_URL} from './auth.jsx';
+import {login, API_URL} from '../api/auth.jsx';
 
 
 const ACCESS_TOKEN_URL = `${API_URL}/api/token/`;

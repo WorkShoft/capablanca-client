@@ -1,7 +1,7 @@
 import 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App.jsx';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

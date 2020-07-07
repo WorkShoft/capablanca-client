@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {
   Link
 } from "react-router-dom";
-import {getUnfinishedGames, joinGame} from './api.jsx';
+import {getUnfinishedGames, joinGame} from '../api/api.jsx';
 
 
 const GameList = () => {

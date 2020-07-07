@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import Login from './Login.jsx';
-import {useAuth, logout} from './auth.jsx';
+import {useAuth, logout} from "../api/auth.jsx";
 
 
 function AppRouter(props){

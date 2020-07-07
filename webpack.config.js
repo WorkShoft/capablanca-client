@@ -6,6 +6,9 @@ module.exports = {
         exclude: [
 	  /node_modules/
 	],
+	resolve: {
+	  extensions: [".ts", ".tsx", ".js", ".jsx"]
+	},
         use: [
 	  {loader: "file-loader"},
           {loader: "babel-loader"}

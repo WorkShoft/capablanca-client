@@ -21,7 +21,7 @@ label, .menu button {
 }
 
 .buttonList {
-    background: url("img/black-white-modern-home-chess.jpg") no-repeat; 
+    background: url("../img/black-white-modern-home-chess.jpg") no-repeat; 
     background-size: cover;
     padding: 0px;
     margin-top: 52px;
@@ -79,8 +79,8 @@ label, .menu button {
 }
 
 #gameList {
-    background: url("img/chess-knight-vector-clipart.png") no-repeat; 
-    background-size: cover;
+    background: url("../img/chess-knight-vector-clipart.png") no-repeat; 
+    background-size: contain;
     background-position: center; 
 }
 

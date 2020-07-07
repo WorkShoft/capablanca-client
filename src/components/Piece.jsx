@@ -1,10 +1,10 @@
 import React from 'react';
 
-import transparent from './img/transparent.png';
+import transparent from '../img/transparent.png';
 
 function Piece(props){
   const {pieceSize} = props;
-  const spritesheet = require('./img/chess_brian_provan.png');
+  const spritesheet = require('../img/chess_brian_provan.png');
   const spritesheetWidth = pieceSize * 6;
   const spritesheetHeight = pieceSize * 12;
   const blue = 'rgb(184, 201, 255)';

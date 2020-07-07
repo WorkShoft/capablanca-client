@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getGame, createGame, movePiece} from './api.jsx';
+import {getGame, createGame, movePiece} from '../api/api.jsx';
 import Piece from './Piece.jsx';
 
 import { ToastContainer, toast } from 'react-toastify';

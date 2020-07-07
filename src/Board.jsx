@@ -28,14 +28,12 @@ function getPieceTypeAndColor(symbol){
 function getSquareFromCoords(x, y){
   /* 
      8 	
-     7 (0, 1) -> a7	
-     6 	    
-     5 	    
-     4 	    
-     3 	    
-     2 	
-     1               (7,7) -> h1	
-     a b c d e f g h 
+     7 (0,1) -> a7	
+     .
+     .
+     .
+     1       
+     a . . . h (7,7) -> h1	 
    */
   
   const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];

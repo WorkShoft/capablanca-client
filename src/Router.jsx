@@ -27,10 +27,10 @@ function AppRouter(props){
         {logged && <>
                      <Redirect to="/menu"/>
                      <Route exact path="/menu" component={Menu} />	  
-	             <Route exact path="/game" render={() =>
+	             <Route exact path="/game/:uuid?" render={routeProps =>
                                                        <div>
-                                                       <button onClick={logout}>Logout</button>                                                         
-                                                         <Board layout={layout} />
+							 <button onClick={logout}>Logout</button>
+                                                         <Board layout={layout} {...routeProps}/>
                                                        </div>
                                                       }
                      />

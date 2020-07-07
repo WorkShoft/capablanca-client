@@ -4,7 +4,6 @@ import {API_URL, authFetch} from './auth.jsx';
 let GAME_UUID = '';
 const createGameEndpoint = '/chess/game/';
 const getUnfinishedGamesEndpoint = '/chess/game/get_unfinished_games/'
-let getGameEndpoint = `/chess/game/${GAME_UUID}`;
 
 const jsonHeaders = {
   'Content-Type': 'application/json',
@@ -30,7 +29,7 @@ const createGame = async (preferredColor) => {
 };
 
 const getGame = (gameUuid) => {
-  GAME_UUID = gameUuid;
+  const getGameEndpoint = `/chess/game/${gameUuid}/`;
   return authFetchCall("GET", getGameEndpoint);
 };
 

@@ -1,4 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import {
+  Link
+} from "react-router-dom";
 import {getUnfinishedGames, joinGame} from './api.jsx';
 
 
@@ -26,19 +29,21 @@ const GameList = () => {
     let {username: whites_username} = whites_player || "???";
     let {username: blacks_username} = blacks_player || "???";  
 
-    return <tr className="row" key={game.id} onClick={async () => {
-      setJoining(true);
-      await joinGame(uuid, "random");
-      setJoining(false);
-    }}>
-             
-	     <td className="col-lg-6 col-sm-6 col-6">
-	       <b>{whites_username || "???"}</b>
-	     </td>
-	     <td className="col-lg-6 col-sm-6 col-6">
-	       <b>{blacks_username || "???"}</b>
-	     </td>         
-           </tr>;
+    return         <Link to={`/game/${uuid}`}>
+                     <tr className="row" key={game.id} onClick={async () => {
+	setJoining(true);
+	await joinGame(uuid, "random");
+	setJoining(false);
+      }}>
+
+	<td className="col-lg-6 col-sm-6 col-6">
+	  <b>{whites_username || "???"}</b>
+	</td>
+	<td className="col-lg-6 col-sm-6 col-6">
+	  <b>{blacks_username || "???"}</b>
+	</td>
+                     </tr>
+                   </Link>;
   });
 
   if(loading === false && joining === false) {

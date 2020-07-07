@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {createGame, movePiece} from './api.jsx';
+import {getGame, createGame, movePiece} from './api.jsx';
 import Piece from './Piece.jsx';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -95,10 +95,21 @@ function Board(props){
 
   const notify = (detail) => toast(detail);
 
+  const {uuid} = props.match.params;
+  
   /* Load game asynchronously */
-  useEffect(() => {
+  useEffect(() => {    
     const loadGame = async() => {
-      const gameData = await createGame({"preferred_color": "white"});
+      let gameData = {};
+      
+      if(uuid !== undefined){
+	gameData = await getGame(uuid);
+      }
+
+      else {
+	gameData = await createGame({"preferred_color": "white"});
+      }
+      
       setGame(gameData);     
     };
 
@@ -143,7 +154,7 @@ function Board(props){
 
       callMovePiece();
       setToSquare("");
-      setFromSquare(toSquare);
+      setFromSquare("");
     };
   }, [game.uuid, fromSquare, toSquare]);
 

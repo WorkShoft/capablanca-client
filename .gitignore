@@ -275,12 +275,3 @@ tags
 pyvenv.cfg
 pip-selfcheck.json
 .env
-
-
-### Project template
-
-django_react_chess/media/
-
-.pytest_cache/
-
-

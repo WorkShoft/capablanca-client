@@ -14,17 +14,18 @@ const ResultModal = (props) => {
     }    
   }, [result]);
     
-  return <div className="modal fade text-center" id={id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-           <div className="modal-dialog mx-auto d-inline-flex align-items-center text-left" role="document">
-             <div className="modal-content">
+  return <div className="modal fade" id={id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div className="modal-dialog col-lg-2" role="document">
+             <div className="modal-content mx-auto col-lg-9">
                <div className="modal-body">
-               <div className="row">
+               <div className="row mx-auto">
                  <h6 className="col">Result</h6>
                  <h6 className="col">Termination</h6>
                </div>
-                 <div className="row">
-                   <h6 className="col text-info" id="exampleModalLabel">{resultText}</h6>
-                   <h6 className="col text-info" id="exampleModalLabel">{terminationText}</h6>
+                                  <hr/>
+                 <div className="row mx-auto">
+                   <h6 className="col text-info gameInfoText">{resultText}</h6>
+                   <h6 className="col text-info gameInfoText">{terminationText}</h6>
                  </div>
                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                    <span aria-hidden="true">&times;</span>

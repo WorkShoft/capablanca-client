@@ -132,6 +132,14 @@ tbody a {
     width: 30px;
 }
 
-.gameTitle{
+.gameTitle {
     margin-top: 10px;
+}
+
+.gameInfoText {
+    word-break: break-word;
+}
+
+.modal-body {
+    padding: 20px 0px 10px 0px;
 }

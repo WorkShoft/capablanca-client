@@ -52,7 +52,7 @@ function Login() {
 	</div>
 	<button type="submit" className="col-lg-12 btn btn-primary">Log in</button>
       </div>
-    </form>;  
+    </form>  
   </div>};
 
 

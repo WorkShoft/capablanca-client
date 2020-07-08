@@ -1,5 +1,5 @@
 import React from 'react';
-import PieceImg from './../styled/piece_styled.jsx';
+import PieceImg from './../styled/PieceImg.jsx';
 
 import transparent from '../img/transparent.png';
 

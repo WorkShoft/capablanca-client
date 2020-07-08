@@ -1,5 +1,5 @@
 html > * {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 label, .menu button {
@@ -36,7 +36,8 @@ label, .menu button {
 }
 
 h1 {
-    font-family: 'Inknut Antiqua', serif;
+    font-family: 'Inknut Antiqua', sans-serif;    
+    font-size: 29px;
 }
 
 .label-input {
@@ -84,6 +85,10 @@ h1 {
     outline:none;
 }
 
+.usernameButton {
+    border: 0px;
+}
+
 #gameList {
     background: url("../img/chess-knight-vector-clipart.png") no-repeat; 
     background-size: contain;
@@ -110,4 +115,23 @@ h1 {
 
 tbody a {
     text-decoration: none !important;
+}
+
+.userImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #80b4ec;
+}
+
+#logoutButton{
+    color: black !important;
+}
+
+#gameInfo {
+    width: 30px;
+}
+
+.gameTitle{
+    margin-top: 10px;
 }

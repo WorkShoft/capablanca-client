@@ -1,0 +1,27 @@
+#gameList {
+    background: url("../img/chess-knight-vector-clipart.png") no-repeat; 
+    background-size: contain;
+    background-position: center; 
+}
+
+#gameList thead tr th {
+    font-size: 20px;
+    color: black;    ;
+}
+
+#gameList > tbody {
+    font-size: 16px;
+}
+
+#gameList tr {
+    background: #fffffff8;
+}
+
+
+#gameList tr:hover {
+    background: #ffffffdd;    
+}
+
+tbody a {
+    text-decoration: none !important;
+}

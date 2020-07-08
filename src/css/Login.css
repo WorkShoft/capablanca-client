@@ -1,0 +1,19 @@
+#loginMenu {
+    background-size: 100%;
+    padding: 0px;
+}
+
+#loginMenu, #loginMenu .card-header {
+    border: 0px;
+    background: white;
+}
+
+.label-input {
+    padding-bottom: 20px;
+    background: white;
+    color: black;
+}
+
+.card-body {
+    padding: 10px;
+}

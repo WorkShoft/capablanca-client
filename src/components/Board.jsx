@@ -1,83 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {getGame, createGame, movePiece} from '../api/api.jsx';
-import Piece from './Piece.jsx';
-
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import {ToastContainer, toast} from 'react-toastify';
+import {getGame, createGame, movePiece} from '../api/api.jsx';
+import {getLayoutFromFen} from '../utils/utils.jsx';
 
-function getPieceTypeAndColor(symbol){
-  const SYMBOL_MAP = {
-    "r": {"pieceType": "rook", "pieceColor": "black"},
-    "n": {"pieceType": "knight", "pieceColor": "black"},
-    "b": {"pieceType": "bishop", "pieceColor": "black"},
-    "q": {"pieceType": "queen", "pieceColor": "black"},
-    "k": {"pieceType": "king", "pieceColor": "black"},
-    "p": {"pieceType": "pawn", "pieceColor": "black"},
-    "R": {"pieceType": "rook", "pieceColor": "white"},
-    "N": {"pieceType": "knight", "pieceColor": "white"},
-    "B": {"pieceType": "bishop", "pieceColor": "white"},
-    "Q": {"pieceType": "queen", "pieceColor": "white"},
-    "K": {"pieceType": "king", "pieceColor": "white"},
-    "P": {"pieceType": "pawn", "pieceColor": "white"}, 
-  };
-
-  return SYMBOL_MAP[symbol];
-}
-
-function getSquareFromCoords(x, y){
-  /* 
-     8 	
-     7 (0,1) -> a7	
-     .
-     .
-     .
-     1       
-     a . . . h (7,7) -> h1	 
-   */
-  
-  const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
-  const file = FILES[x];
-  const rank = 8 - y;
-  
-  return `${file}${rank}`;  
-}
-
-function getLayoutFromFen(boardFen){
-  /*
-     Returns an 8x8 list of lists, where every
-     inner list is a board row 
-   */
-  
-  const board_fen_split = boardFen.split("/");
-  let layout = [];
-
-  for (const [y, row] of board_fen_split.entries()){
-    let x = 0;
-    layout.push([]);
-    const row_symbols = row.split("");
-    for(const char of row_symbols){
-      let piece = "";
-      // Check if the symbol is a number
-      if (!isNaN(char)){
-        for(let i=0; i<char; i++){
-          piece = {"pieceType": "", "pieceColor": "", "square": getSquareFromCoords(x, y),"x": x, "y": y};
-          layout[y].push(piece);
-          x++;
-        }
-      }
-      // If it's not a number, it's a piece symbol
-      else {
-        const {pieceType, pieceColor} = getPieceTypeAndColor(char);
-        piece = {"pieceType": pieceType, "pieceColor": pieceColor, "square": getSquareFromCoords(x, y), "x": x, "y": y};
-        layout[y].push(piece);
-        x++;
-      }
-    }
-  }
-
-  return layout;
-}
+import Piece from './Piece.jsx';
+import BoardDiv from '../styled/board_styled.jsx';
 
 
 function Board(props){
@@ -90,6 +19,7 @@ function Board(props){
   const {username: whites_username} = whites_player || "???";
   const {username: blacks_username} = blacks_player || "???";  
   const pieceSize = 36; // width and height in px
+  const boardSize = pieceSize * 8;
 
   const notify = (detail) => toast(detail);
 
@@ -127,9 +57,8 @@ function Board(props){
     loadLayout();
   }, [game]);
 
-
+  /* Request a move */
   useEffect(() => {
-    /* Request move and reset */
     if (fromSquare !== "" && toSquare !== "") {
       const moveData = {
         from_square: fromSquare,
@@ -157,10 +86,7 @@ function Board(props){
   }, [game.uuid, fromSquare, toSquare]);
 
   const setFromToSquares = (square) => {
-    /* 
-      setFromSquare -> setToSquare -> reset and setFromSquare...
-    */
-
+    /* setFromSquare -> setToSquare -> reset -> setFromSquare */
     
     if(fromSquare === ""){
       setFromSquare(square);    
@@ -169,25 +95,27 @@ function Board(props){
     else if (toSquare === ""){
       setToSquare(square);
     }         
-};
-
-  const boardStyle = {
-    boxShadow: '1px 3px 7px 2px black',
-    margin: '0 auto',
-    marginTop: '5px',
-    width: pieceSize * 8,
   };
 
-  let currentLayoutRows = Object.values(layout).map((row) => <div key={row.id} className="board-row" style={{ height: pieceSize }}> {row.map((piece) => <Piece key={piece.id} square={piece.square} pieceSize={pieceSize} pieceType={piece.pieceType} pieceColor={piece.pieceColor} x={piece.x} y={piece.y} setFromToSquares={setFromToSquares} />)}
-  </div>);
-
+  let currentLayoutRows = Object.values(layout).map((row) =>
+                                                    <div key={row.id} className="board-row" style={{ height: pieceSize }}>
+                                                      {row.map((piece) =>
+	                                                       <Piece key={piece.id} square={piece.square} pieceSize={pieceSize} pieceType={piece.pieceType}
+	                                                              pieceColor={piece.pieceColor} x={piece.x} y={piece.y} setFromToSquares={setFromToSquares}
+	                                                       />
+                                                              )
+                                                      }
+                                                    </div>
+                                                   );
+  
   return <div>
-           <ToastContainer />
-           <h4 className="text-center">{whites_username || "???"} vs {blacks_username || "???"}</h4><br/>
-           <div id="board" style={boardStyle}>             
-             {currentLayoutRows}
-           </div>;           
-         </div>;
+    <ToastContainer />
+    <h4 className="text-center">{whites_username || "???"} vs {blacks_username || "???"}</h4><br/>   
+    <BoardDiv id="board" boardSize={boardSize}>             
+      {currentLayoutRows}
+    </BoardDiv>;
+  
+  </div>;
 }
 
 export default Board;

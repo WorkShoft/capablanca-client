@@ -1,4 +1,5 @@
 import React from 'react';
+import PieceImg from './../styled/piece_styled.jsx';
 
 import transparent from '../img/transparent.png';
 
@@ -11,13 +12,6 @@ function Piece(props){
   const {pieceColor, pieceType, square, x, y, setFromToSquares} = props;
   
   let backgroundColor = 'white';  
-  let style = {
-    backgroundImage: `url(${spritesheet})`,
-    backgroundSize: `${spritesheetWidth}px ${spritesheetHeight}px`, 
-    backgroundPosition: '0px 0px',
-    width: `${pieceSize}px`,
-    height: `${pieceSize}px`,
-  };
 
   if ( (x + y) % 2 !== 0){      
     backgroundColor = blue;
@@ -35,18 +29,17 @@ function Piece(props){
 
   else {
     const pieceOrder = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'];    
-
     const backgroundX = pieceOrder.indexOf(pieceType) * pieceSize;
     const backgroundY = pieceColor === 'white' ? pieceSize : 0;
 
     let top = 0;
     let left = 0;
-
-    style.backgroundPosition = `-${backgroundX}px -${backgroundY}px`;
+    let backgroundPosition = `-${backgroundX}px -${backgroundY}px`;
     
     return <div style={{height: pieceSize, display: 'inline-block', backgroundColor: backgroundColor}}>
       <button square={square} className="board-square" onClick={() => setFromToSquares(square)}>
-	<img src={transparent} alt="Chess piece" style={{...style, position: 'relative', top: top, left: left, width: `${pieceSize}px`, height: `${pieceSize}px`}} />
+	<PieceImg alt="Chess piece" src={transparent} top={top} left={left} pieceSize={pieceSize} spritesheet={spritesheet} spritesheetWidth={spritesheetWidth} spritesheetHeight={spritesheetHeight} backgroundPosition={backgroundPosition}> 
+	</PieceImg>
       </button>
     </div>;
   }

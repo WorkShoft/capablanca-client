@@ -44,9 +44,9 @@ const movePiece = async (data, gameUuid) => {
   return authFetchCall("PUT", movePieceEndpoint, data);
 };
 
-const joinGame = (gameUuid, preferredColor) => {
+const joinGame = async (gameUuid, preferredColor) => {
   const joinGameEndpoint = `/chess/game/${gameUuid}/join/`;
-  authFetchCall("PUT", joinGameEndpoint, preferredColor);
+  return authFetchCall("PUT", joinGameEndpoint, preferredColor);
 };
 
 const getUnfinishedGames = () => {

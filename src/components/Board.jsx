@@ -137,7 +137,7 @@ function Board(props){
                                                     </div>
                                                    );
   
-  return <div>
+  return <div uuid={game.uuid} id="mainDiv">
     <ToastContainer />
     <ResultModal id="resultModal" result={result} />           
     <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>

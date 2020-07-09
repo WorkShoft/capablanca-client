@@ -8,13 +8,12 @@ const ResultModal = (props) => {
 
   useEffect(() => {
     if(result.hasOwnProperty("result")){
-      console.log(result);
       setResultText(result.result);
       setTerminationText(result.termination);
     }    
   }, [result]);
     
-  return <div className="modal fade" id={id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  return <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
            <div className="modal-dialog col-lg-2" role="document">
              <div className="modal-content mx-auto col-lg-9">
                <div className="modal-body">

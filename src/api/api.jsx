@@ -1,30 +1,36 @@
 import {API_URL, authFetch} from './auth.jsx';
 
 
-let GAME_UUID = '';
-const createGameEndpoint = '/chess/game/';
-const getUnfinishedGamesEndpoint = '/chess/game/get_unfinished_games/'
+const PAYLOAD_METHODS = ["POST", "PUT", "PATCH"];
 
 const jsonHeaders = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
 };
 
-
 const authFetchCall = (method, endpoint, data) => {
-  const jsonData = JSON.stringify(data);
-  
-  return authFetch(`${API_URL}${endpoint}`, {
+  let HTTP_REQUEST_CONFIG = {
     method: method,
-    body: jsonData,
-    headers: jsonHeaders,
-  })
-    .then(r => r.json());
+    headers: jsonHeaders
+  };
+    
+  if(PAYLOAD_METHODS.includes(method)){
+    const jsonData = JSON.stringify(data);      
+    HTTP_REQUEST_CONFIG.body = jsonData;
+  }
+  
+  return authFetch(
+    `${API_URL}${endpoint}`,
+    HTTP_REQUEST_CONFIG
+  )
+    .then(r => r.json())
+    .catch(error => console.log(`Error! Payload: ${HTTP_REQUEST_CONFIG.body}\n Response: ${r => r}`, error)); 
 };
 
 /* API calls */ 
 
 const createGame = async (preferredColor) => {
+  const createGameEndpoint = '/chess/game/';
   return authFetchCall("POST", createGameEndpoint, preferredColor);
 };
 
@@ -40,10 +46,11 @@ const movePiece = async (data, gameUuid) => {
 
 const joinGame = (gameUuid, preferredColor) => {
   const joinGameEndpoint = `/chess/game/${gameUuid}/join/`;
-  authFetchCall("PUT", joinGameEndpoint, {"preferred_color": preferredColor});
+  authFetchCall("PUT", joinGameEndpoint, preferredColor);
 };
 
 const getUnfinishedGames = () => {
+  const getUnfinishedGamesEndpoint = '/chess/game/get_unfinished_games/';
   return authFetchCall("GET", getUnfinishedGamesEndpoint);
 }
 

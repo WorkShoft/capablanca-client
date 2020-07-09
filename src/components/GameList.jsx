@@ -19,7 +19,7 @@ const GameList = () => {
     };
     
     loadGames();
-  }, [joining]);
+  }, []);
 
   const gameList = games.map((game) => {
     let {whites_player} = game;
@@ -29,10 +29,10 @@ const GameList = () => {
     let {username: whites_username} = whites_player || "???";
     let {username: blacks_username} = blacks_player || "???";  
 
-    return         <Link to={`/game/${uuid}`}>
-                     <tr className="row" key={game.id} onClick={async () => {
+    return <Link to={`/game/${uuid}`} key={game.id}>
+      <tr className="row" onClick={async () => {
 	setJoining(true);
-	await joinGame(uuid, "random");
+	await joinGame(uuid, {"preferred_color": "white"});
 	setJoining(false);
       }}>
 
@@ -42,8 +42,8 @@ const GameList = () => {
 	<td className="col-lg-6 col-sm-6 col-6">
 	  <b>{blacks_username || "???"}</b>
 	</td>
-                     </tr>
-                   </Link>;
+      </tr>
+    </Link>;
   });
 
   if(loading === false && joining === false) {

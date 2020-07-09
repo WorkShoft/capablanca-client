@@ -30,7 +30,7 @@ function Login() {
   };
   
   return <div>
-    <form onSubmit={onSubmit} className="mx-auto d-flex justify-content-left card col-lg-1" id="loginMenu">
+    <form onSubmit={onSubmit} className="mx-auto d-flex justify-content-left card col-lg-2" id="loginMenu">
       <div className="col-lg-12 card-body text-center">
 	<div className="label-input">               
 	  <label htmlFor="username">Username</label>

@@ -138,25 +138,25 @@ function Board(props){
                                                    );
   
   return <div>
-           <ToastContainer />
-           <ResultModal id="resultModal" result={result} />           
-           <h6 className="text-left col-lg-2 mx-auto">
-               <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
-               <span className={usernameClasses.whiteUsernameClass}> {blacks_username || "???"}</span> 
-           </h6>
-           <br/>   
-           <BoardDiv id="board" boardSize={boardSize}>             
-             {currentLayoutRows}
-           </BoardDiv><br/>
-           
-           <h6 className="text-left col-lg-2 mx-auto">
-             <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
-             <span className={usernameClasses.whiteUsernameClass}> {whites_username || "???"}</span>
-             <button data-toggle="modal" data-target="#resultModal" className="usernameButton btn-secondary float-right">
-               <img alt="Game information icon" id="gameInfo" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
-             </button>
-           </h6>
-         </div>;
+    <ToastContainer />
+    <ResultModal id="resultModal" result={result} />           
+    <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
+      <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
+      <span className={usernameClasses.whiteUsernameClass}> {blacks_username || "???"}</span> 
+    </h6>
+    <br/>   
+    <BoardDiv id="board" boardSize={boardSize}>             
+      {currentLayoutRows}
+    </BoardDiv><br/>
+    
+    <h6 className="text-left mx-auto" style={{ width: boardSize }}>
+      <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
+      <span className={usernameClasses.whiteUsernameClass}> {whites_username || "???"}</span>
+      <button data-toggle="modal" data-target="#resultModal" className="usernameButton btn-secondary float-right">
+        <img alt="Game information icon" id="gameInfo" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
+      </button>
+    </h6>
+  </div>;
 }
 
 export default Board;

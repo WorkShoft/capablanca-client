@@ -23,7 +23,7 @@ Cypress.Commands.add("movePiece", (fromSquare, toSquare) => {
 })
 
 Cypress.Commands.add("toggleInfo", () => {
-  cy.get("img#gameInfo").click();
+  cy.get("img#gameInfoIcon").click();
 })
 
 Cypress.Commands.add("getResult", () => {

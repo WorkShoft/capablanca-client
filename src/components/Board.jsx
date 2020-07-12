@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
+
 import 'react-toastify/dist/ReactToastify.css';
+import '../css/Board.css';
 
 import {ToastContainer, toast} from 'react-toastify';
 import {getGame, createGame, movePiece} from '../api/api.jsx';
@@ -103,6 +105,11 @@ function Board(props){
 	  setLayout(layoutData);        
 	}
 
+	if(response.result){
+	  const result = response.result;
+	  setResult(result);
+	}
+
 	else if(response.detail){
 	  notify(response.detail);
 	}
@@ -127,15 +134,15 @@ function Board(props){
   };
 
   let currentLayoutRows = Object.values(layout).map((row) =>
-                                                    <div key={row.id} className="board-row" style={{ height: pieceSize }}>
-                                                      {row.map((piece) =>
-	                                                       <Piece key={piece.id} square={piece.square} pieceSize={pieceSize} pieceType={piece.pieceType}
-	                                                              pieceColor={piece.pieceColor} x={piece.x} y={piece.y} setFromToSquares={setFromToSquares}
-	                                                       />
-                                                              )
-                                                      }
-                                                    </div>
-                                                   );
+    <div key={row.id} className="board-row" style={{ height: pieceSize }}>
+      {row.map((piece) =>
+	<Piece key={piece.id} square={piece.square} pieceSize={pieceSize} pieceType={piece.pieceType}
+	       pieceColor={piece.pieceColor} x={piece.x} y={piece.y} setFromToSquares={setFromToSquares}
+	/>
+      )
+      }
+    </div>
+  );
   
   return <div uuid={game.uuid} id="mainDiv">
     <ToastContainer />
@@ -153,7 +160,7 @@ function Board(props){
       <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
       <span className={usernameClasses.whiteUsernameClass}> {whites_username || "???"}</span>
       <button data-toggle="modal" data-target="#resultModal" className="usernameButton btn-secondary float-right">
-        <img alt="Game information icon" id="gameInfo" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
+        <img alt="Game information icon" id="gameInfoIcon" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
       </button>
     </h6>
   </div>;

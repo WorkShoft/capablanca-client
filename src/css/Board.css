@@ -32,3 +32,21 @@
     z-index: 1;
     outline:none;
 }
+
+#gameInfoIcon {
+    width: 30px;
+}
+
+.userIcon {
+    width: 288px;
+}
+.usernameButton {
+    border: 0px;
+}
+
+.userImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #80b4ec;
+}

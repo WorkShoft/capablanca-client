@@ -1,0 +1,12 @@
+h1 {
+    font-family: 'Inknut Antiqua', sans-serif;   
+    font-size: 29px;
+}
+
+.gameTitle {
+    margin-top: 10px;
+}
+
+#logoutButton {
+    color: black !important;
+}

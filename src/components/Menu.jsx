@@ -2,6 +2,8 @@ import React from 'react';
 import {
   Link
 } from "react-router-dom";
+
+import "../css/Menu.css";
 import {logout} from "../api/auth.jsx";
 
 function Menu(props){

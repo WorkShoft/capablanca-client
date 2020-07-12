@@ -1,4 +1,6 @@
 import React from 'react';
+
+import "../css/Nav.css";
 import {logout} from "../api/auth.jsx";
 
 

@@ -1,0 +1,25 @@
+.gameInfoText, .gameInfoHeader {
+    word-break: break-word;
+    padding: 0px;
+    font-size: 11px;
+}
+
+.col-lg-6, .col-lg-7 {
+    padding: 0px !important;    
+}
+
+.modal-body {
+    padding: 20px 0px 0px 20px;
+}
+
+
+.modal-content {
+    box-shadow: 1px 3px 7px 2px rgb(184, 201, 255);
+}
+
+.row {
+    margin: 0 auto;
+}
+
+
+

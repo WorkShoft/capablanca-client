@@ -24,5 +24,9 @@ it("Plays Fool's Mate", () => {
     }  
   });
 
+  cy.toggleInfo();
+  
+  const result = cy.getResult().should("have.text", "Black wins");
+  const termination = cy.getTermination().should("have.text", "Normal");
 });
 

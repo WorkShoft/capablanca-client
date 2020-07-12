@@ -21,3 +21,15 @@ Cypress.Commands.add("movePiece", (fromSquare, toSquare) => {
   cy.get(`[square=${fromSquare}]`).click();  
   cy.get(`[square=${toSquare}]`).click();
 })
+
+Cypress.Commands.add("toggleInfo", () => {
+  cy.get("img#gameInfo").click();
+})
+
+Cypress.Commands.add("getResult", () => {
+  cy.get("#resultText");
+});
+		     
+Cypress.Commands.add("getTermination", () => {
+  cy.get("#terminationText"); 
+});

@@ -10,6 +10,7 @@ import {getLayoutFromFen} from '../utils/utils.jsx';
 import Piece from './Piece.jsx';
 import BoardDiv from '../styled/BoardDiv.jsx';
 import ResultModal from './ResultModal.jsx';
+import Spinner from './Spinner.jsx';
 
 
 function Board(props){
@@ -18,6 +19,7 @@ function Board(props){
   const [fromSquare, setFromSquare] = useState("");
   const [toSquare, setToSquare] = useState("");
   const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(true);
   const [usernameClasses, setUsernameClasses] = useState(
     {
       "whiteUsernameClass": "text-normal",
@@ -30,7 +32,7 @@ function Board(props){
   const {username: blacks_username} = blacks_player || "???";  
   const pieceSize = 36; // width and height in px
   const boardSize = pieceSize * 8;
-
+  
   const notify = (detail) => toast(detail);
 
   const {uuid} = props.match.params;
@@ -48,7 +50,7 @@ function Board(props){
 	gameData = await createGame({"preferred_color": "white"});
       }
       
-      setGame(gameData);     
+      setGame(gameData);
     };
 
     loadGame();
@@ -81,11 +83,12 @@ function Board(props){
             "blackUsernameClass": "text-success"
           });
         }
-      }
-      
-  };
+      }      
+    };
 
     loadLayout();
+
+    setLoading(false);
   }, [game]);
 
   /* Request a move */
@@ -145,22 +148,36 @@ function Board(props){
   );
   
   return <div uuid={game.uuid} id="mainDiv">
+
     <ToastContainer />
+
     <ResultModal id="resultModal" result={result} />           
     <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
       <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
       <span className={usernameClasses.whiteUsernameClass}> {blacks_username || "???"}</span> 
     </h6>
-    <br/>   
-    <BoardDiv id="board" boardSize={boardSize}>             
-      {currentLayoutRows}
-    </BoardDiv><br/>
-    
+    <br/>
+    <div>
+
+      {
+	(loading === true &&
+	 <Spinner color={"#123abc"} size={boardSize} />
+	)
+	||
+
+	  <BoardDiv id="board" boardSize={boardSize}>
+	    {currentLayoutRows}
+	  </BoardDiv>
+
+      }
+
+    </div>
+    <br/>	 	 
     <h6 className="text-left mx-auto" style={{ width: boardSize }}>
       <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
       <span className={usernameClasses.whiteUsernameClass}> {whites_username || "???"}</span>
       <button data-toggle="modal" data-target="#resultModal" className="usernameButton btn-secondary float-right">
-        <img alt="Game information icon" id="gameInfoIcon" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
+	<img alt="Game information icon" id="gameInfoIcon" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
       </button>
     </h6>
   </div>;

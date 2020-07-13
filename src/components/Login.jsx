@@ -27,7 +27,12 @@ function Login() {
       },
     })
       .then(r => r.json())
-      .then(token => login(token));
+      .then(token => {
+	if (token.hasOwnProperty("access")) {
+	  login(token);
+	}	
+      }
+           );
   };
   
   return <div>

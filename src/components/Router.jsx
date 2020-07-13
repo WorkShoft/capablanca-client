@@ -23,26 +23,26 @@ function AppRouter(props){
       <Nav logged={logged} />
       <Switch>
 	{!logged && <>
-	  <Route path="/login" component={Login}/>
-          <Redirect to="/login"/>
-	</>}
+	              <Route path="/login" component={Login}/>
+                      <Redirect to="/login"/>
+	            </>}
         {logged && <>
-          <Redirect to="/menu"/>
-          <Route exact path="/menu" component={Menu} />	  
-	  <Route exact path="/game/:uuid?" render={routeProps =>
-            <div>
-              <Board layout={layout} {...routeProps} />
-            </div>
-          }
-          />
-          <Route exact path="/my_games" render={() => <div>
-            <GameList ownGames={true} />
-          </div>
-          }
-          />
-	  <Route exact path="/all_games" render={() => <div>
-            <GameList />
-          </div>
+                     <Redirect to="/menu"/>
+                     <Route exact path="/menu" component={Menu} />	  
+	             <Route exact path="/game/:uuid?" render={routeProps =>
+                                                              <div>
+                                                                <Board layout={layout} {...routeProps} />
+                                                              </div>
+                                                             }
+                     />
+                     <Route exact path="/my_games" render={() => <div>
+                                                                         <GameList ownGames={true} />
+                                                                       </div>
+                                                          }
+                     />
+	             <Route exact path="/all_games" render={() => <div>
+         <GameList />
+       </div>
           }
           />
         </>	

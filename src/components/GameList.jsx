@@ -44,7 +44,7 @@ const GameList = (props) => {
     </Link>;
   });
 
-  if(loading === false && joining === false) {
+  if(loading === false) {
     return <table className="col-lg-2 col-sm-6 col-9 table mx-auto text-center" id="gameList">
              <thead>
                <tr className="row">

@@ -4,18 +4,19 @@ import {
 } from "react-router-dom";
 
 import '../css/GameList.css';
-import {getUnfinishedGames, joinGame} from '../api/api.jsx';
+import {getUnfinishedGames, getGames, joinGame} from '../api/api.jsx';
 
 
-const GameList = () => {
+const GameList = (props) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [joining, setJoining] = useState(false);
+  const {ownGames} = props;
 
   useEffect(() => {
     const loadGames = async() => {
     setLoading(true);
-    const gamesResponse = await getUnfinishedGames();
+    const gamesResponse = ownGames ? await getUnfinishedGames() : await getGames();
     setGames(gamesResponse.results);
     setLoading(false);
     };

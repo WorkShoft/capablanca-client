@@ -13,8 +13,11 @@ function Menu(props){
         <Link to="/game">
           <button className="col-lg-12" id="newGame">New game</button>
         </Link>
-	<Link to="/gamelist">
-          <button className="col-lg-12" id="joinGame">Join game</button>
+	<Link to="/my_games">
+          <button className="col-lg-12" id="myGames">My games</button>
+        </Link>
+	<Link to="/all_games">
+          <button className="col-lg-12" id="allGames">All games</button>
         </Link>
       </div>
     </div>          

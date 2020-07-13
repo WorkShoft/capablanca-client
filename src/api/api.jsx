@@ -39,6 +39,11 @@ const getGame = (gameUuid) => {
   return authFetchCall("GET", getGameEndpoint);
 };
 
+const getGames = () => {
+  const getGamesEndpoint = `/chess/game/`;
+  return authFetchCall("GET", getGamesEndpoint);
+};
+
 const movePiece = async (data, gameUuid) => {
   const movePieceEndpoint = `/chess/game/${gameUuid}/move/`;
   return authFetchCall("PUT", movePieceEndpoint, data);
@@ -54,4 +59,4 @@ const getUnfinishedGames = () => {
   return authFetchCall("GET", getUnfinishedGamesEndpoint);
 }
 
-export {createGame, getGame, movePiece, joinGame, getUnfinishedGames};
+export {createGame, getGame, getGames, movePiece, joinGame, getUnfinishedGames};

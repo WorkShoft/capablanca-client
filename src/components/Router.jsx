@@ -35,7 +35,12 @@ function AppRouter(props){
             </div>
           }
           />
-          <Route exact path="/gamelist" render={() => <div>
+          <Route exact path="/my_games" render={() => <div>
+            <GameList ownGames={true} />
+          </div>
+          }
+          />
+	  <Route exact path="/all_games" render={() => <div>
             <GameList />
           </div>
           }

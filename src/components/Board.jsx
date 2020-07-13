@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../css/Board.css';
 
 import {ToastContainer, toast} from 'react-toastify';
-import {getGame, createGame, movePiece} from '../api/api.jsx';
+import {getGame, createGame, joinGame, movePiece} from '../api/api.jsx';
 import {getLayoutFromFen} from '../utils/utils.jsx';
 
 import Piece from './Piece.jsx';
@@ -26,10 +26,11 @@ function Board(props){
       "blackUsernameClass": "text-normal"
     }
   );
-  const {whites_player} = game;
-  const {blacks_player} = game;
-  const {username: whites_username} = whites_player || "???";
-  const {username: blacks_username} = blacks_player || "???";  
+
+  const [whitesUsername, setWhitesUsername] = useState("");
+  const [blacksUsername, setBlacksUsername] = useState("");
+
+
   const pieceSize = 36; // width and height in px
   const boardSize = pieceSize * 8;
   
@@ -43,7 +44,8 @@ function Board(props){
       let gameData = {};
       
       if(uuid !== undefined){
-	gameData = await getGame(uuid);
+        await joinGame(uuid, {"preferred_color": "random"});
+        gameData = await getGame(uuid);
       }
 
       else {
@@ -62,7 +64,7 @@ function Board(props){
       if(game.hasOwnProperty("board")){
         const boardFen = await game.board.board_fen;
         const layoutData = await getLayoutFromFen(boardFen);
-        setLayout(layoutData);
+        setLayout(layoutData);       
       }
 
       if(game.hasOwnProperty("result")){
@@ -87,7 +89,7 @@ function Board(props){
     };
 
     loadLayout();
-
+        
     setLoading(false);
   }, [game]);
 
@@ -124,6 +126,15 @@ function Board(props){
     };
   }, [game.uuid, fromSquare, toSquare]);
 
+
+  useEffect(() => {
+    const {username: whitesUsername} = game.whites_player || "???";
+    const {username: blacksUsername} = game.blacks_player || "???";  
+
+    setWhitesUsername(whitesUsername);
+    setBlacksUsername(blacksUsername);    
+  }, [game, uuid]);
+
   const setFromToSquares = (square) => {
     /* setFromSquare -> setToSquare -> reset -> setFromSquare */
     
@@ -148,17 +159,14 @@ function Board(props){
   );
   
   return <div uuid={game.uuid} id="mainDiv">
-
     <ToastContainer />
-
     <ResultModal id="resultModal" result={result} />           
     <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
       <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
-      <span className={usernameClasses.whiteUsernameClass}> {blacks_username || "???"}</span> 
+      <span className={usernameClasses.whiteUsernameClass}> {blacksUsername || "???"}</span> 
     </h6>
     <br/>
     <div>
-
       {
 	(loading === true &&
 	 <Spinner color={"#123abc"} size={boardSize} />
@@ -168,14 +176,13 @@ function Board(props){
 	  <BoardDiv id="board" boardSize={boardSize}>
 	    {currentLayoutRows}
 	  </BoardDiv>
-
       }
-
+      
     </div>
     <br/>	 	 
     <h6 className="text-left mx-auto" style={{ width: boardSize }}>
       <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
-      <span className={usernameClasses.whiteUsernameClass}> {whites_username || "???"}</span>
+      <span className={usernameClasses.whiteUsernameClass}> {whitesUsername || "???"}</span>
       <button data-toggle="modal" data-target="#resultModal" className="usernameButton btn-secondary float-right">
 	<img alt="Game information icon" id="gameInfoIcon" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
       </button>

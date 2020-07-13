@@ -32,11 +32,7 @@ const GameList = (props) => {
     let {username: whites_username} = whites_player || "???";
     let {username: blacks_username} = blacks_player || "???";  
 
-    return <Link to={`/game/${uuid}`} key={game.id} uuid={uuid} onClick={async () => {
-      setJoining(true);
-      await joinGame(uuid, {"preferred_color": "random"});
-      setJoining(false);
-    }}>
+    return <Link to={`/game/${uuid}`} key={game.id} uuid={uuid}>
       <tr className="row">
 	<td className="col-lg-6 col-sm-6 col-6">
 	  <b>{whites_username || "???"}</b>

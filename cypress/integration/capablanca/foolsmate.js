@@ -15,7 +15,7 @@ it("Plays Fool's Mate", () => {
     cy.logOut();    
     cy.logIn("mikel", "superdupermikel");
 
-    cy.get("#joinGame").click();
+    cy.get("#allGames").click();
 
     cy.get(`a[uuid=${uuid}]`).click({"force": true});
 

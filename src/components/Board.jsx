@@ -12,6 +12,8 @@ import BoardDiv from '../styled/BoardDiv.jsx';
 import ResultModal from './ResultModal.jsx';
 import Spinner from './Spinner.jsx';
 
+import {gameSocket} from '../utils/websockets.jsx';
+
 
 function Board(props){
   const [game, setGame] = useState({});
@@ -30,6 +32,7 @@ function Board(props){
   const [whitesUsername, setWhitesUsername] = useState("");
   const [blacksUsername, setBlacksUsername] = useState("");
 
+  const [socket, setSocket] = useState({});
 
   const pieceSize = 36; // width and height in px
   const boardSize = pieceSize * 8;
@@ -53,6 +56,8 @@ function Board(props){
       }
       
       setGame(gameData);
+      const socketObj = gameSocket(gameData.uuid, setGame);
+      setSocket(socketObj);
     };
 
     loadGame();
@@ -113,6 +118,8 @@ function Board(props){
 	if(response.result){
 	  const result = response.result;
 	  setResult(result);
+
+	  socket.send(JSON.stringify({"update": true}));
 	}
 
 	else if(response.detail){

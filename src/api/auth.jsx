@@ -24,7 +24,6 @@ export const [useAuth, authFetch, login, logout] =
     })
       .then(r => r.json())
       .then((r) => {
-        console.log(r);
 	return {
           "access": r.access,
 	  "refresh": token.refresh,

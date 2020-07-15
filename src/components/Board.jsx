@@ -16,6 +16,9 @@ import {gameSocket} from '../utils/websockets.jsx';
 
 
 function Board(props){
+  const pieceSize = 36; // width and height in px
+  const boardSize = pieceSize * 8;
+  
   const [game, setGame] = useState({});
   const [layout, setLayout] = useState({});
   const [fromSquare, setFromSquare] = useState("");
@@ -28,18 +31,14 @@ function Board(props){
       "blackUsernameClass": "text-normal"
     }
   );
-
   const [whitesUsername, setWhitesUsername] = useState("");
-  const [blacksUsername, setBlacksUsername] = useState("");
+  const [blacksUsername, setBlacksUsername] = useState("");  
+  const authUsername = JSON.parse(window.localStorage.getItem("REACT_TOKEN_AUTH_KEY")).name;
 
   const [socket, setSocket] = useState({});
-
-  const pieceSize = 36; // width and height in px
-  const boardSize = pieceSize * 8;
-  
+  const {uuid} = props.match.params;
   const notify = (detail) => toast(detail);
 
-  const {uuid} = props.match.params;
   
   /* Load game asynchronously */
   useEffect(() => {    
@@ -63,12 +62,24 @@ function Board(props){
     loadGame();
   }, []);
 
+  
+  useEffect(() => {
+    const {username: whitesUsername} = game.whites_player || "???";
+    const {username: blacksUsername} = game.blacks_player || "???";  
+
+    setWhitesUsername(whitesUsername);
+    setBlacksUsername(blacksUsername);    
+  }, [game, uuid]);
+
+  
   /* Load layout after the game data has been loaded */
   useEffect(() => {
     const loadLayout = async() => {
       if(game.hasOwnProperty("board")){
-        const boardFen = await game.board.board_fen;
-        const layoutData = await getLayoutFromFen(boardFen);
+	const flipped = authUsername === blacksUsername;
+
+	const boardFen = flipped ? game.board.board_fen_flipped : game.board.board_fen;	
+        const layoutData = await getLayoutFromFen(boardFen, flipped);
         setLayout(layoutData);       
       }
 
@@ -94,9 +105,9 @@ function Board(props){
     };
 
     loadLayout();
-        
+    
     setLoading(false);
-  }, [game]);
+  }, [game, whitesUsername, blacksUsername, authUsername]);
 
   /* Request a move */
   useEffect(() => {
@@ -109,16 +120,7 @@ function Board(props){
       const callMovePiece = async() => {
         const response = await movePiece(moveData, game.uuid);
 
-	if(response.board){
-          const boardFen = await response.board.board_fen;
-          const layoutData = await getLayoutFromFen(boardFen);
-	  setLayout(layoutData);        
-	}
-
 	if(response.result){
-	  const result = response.result;
-	  setResult(result);
-
 	  socket.send(JSON.stringify({"update": true}));
 	}
 
@@ -131,16 +133,7 @@ function Board(props){
       setToSquare("");
       setFromSquare("");
     };
-  }, [game.uuid, fromSquare, toSquare]);
-
-
-  useEffect(() => {
-    const {username: whitesUsername} = game.whites_player || "???";
-    const {username: blacksUsername} = game.blacks_player || "???";  
-
-    setWhitesUsername(whitesUsername);
-    setBlacksUsername(blacksUsername);    
-  }, [game, uuid]);
+  }, [game.uuid, fromSquare, toSquare, socket]);
 
   const setFromToSquares = (square) => {
     /* setFromSquare -> setToSquare -> reset -> setFromSquare */
@@ -164,37 +157,45 @@ function Board(props){
       }
     </div>
   );
-  
-  return <div uuid={game.uuid} id="mainDiv">
-    <ToastContainer />
-    <ResultModal id="resultModal" result={result} />           
-    <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
-      <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
-      <span className={usernameClasses.whiteUsernameClass}> {blacksUsername || "???"}</span> 
-    </h6>
-    <br/>
-    <div>
-      {
-	(loading === true &&
-	 <Spinner color={"#123abc"} size={boardSize} />
-	)
-	||
 
-	  <BoardDiv id="board" boardSize={boardSize}>
-	    {currentLayoutRows}
-	  </BoardDiv>
-      }
-      
-    </div>
-    <br/>	 	 
-    <h6 className="text-left mx-auto" style={{ width: boardSize }}>
-      <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
-      <span className={usernameClasses.whiteUsernameClass}> {whitesUsername || "???"}</span>
-      <button data-toggle="modal" data-target="#resultModal" className="usernameButton btn-secondary float-right">
-	<img alt="Game information icon" id="gameInfoIcon" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
-      </button>
-    </h6>
-  </div>;
+  const blackIcon = <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
+                      <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
+                      <span className={usernameClasses.blackUsernameClass}> {blacksUsername || "???"}</span> 
+                    </h6>;
+
+  const whiteIcon = <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
+                      <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
+                      <span className={usernameClasses.whiteUsernameClass}> {whitesUsername || "???"}</span>
+                    </h6>;
+
+  const infoButton = <div className="text-center">
+                       <button data-toggle="modal" data-target="#resultModal" className="infoButton btn-secondary text-right" style={{ width: boardSize }}>
+                         <img alt="Game information icon" id="gameInfoIcon" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/information-1294813_960_720.png"/>
+                       </button>
+                     </div>;
+
+  return <div uuid={game.uuid} id="mainDiv">
+                   <ToastContainer />
+                   <ResultModal id="resultModal" result={result} />           
+                   {(authUsername === whitesUsername && blackIcon) || whiteIcon}
+                   <br/>
+                   <div>
+                     {
+	               (loading === true &&
+	                <Spinner color={"#123abc"} size={boardSize} />
+	               )
+	                 ||
+
+	               <BoardDiv id="board" boardSize={boardSize}>
+	                 {currentLayoutRows}
+	               </BoardDiv>
+                     }
+
+                   </div>
+                   <br/>	 	 
+                   {(authUsername === whitesUsername && whiteIcon) || blackIcon}
+                   {infoButton}
+                 </div>;
 }
 
 export default Board;

@@ -15,14 +15,21 @@ export const [useAuth, authFetch, login, logout] =
     accessTokenKey: 'access',
     onUpdateToken: (token) => fetch(REFRESH_TOKEN_URL, {      
       method: 'POST',
-      body: JSON.stringify({refresh: token.refresh}),
+      body: JSON.stringify({
+	refresh: token.refresh,
+	name: token.name,
+	active: token.active
+      }),
       headers: jsonHeaders,
     })
       .then(r => r.json())
       .then((r) => {
+        console.log(r);
 	return {
+          "access": r.access,
 	  "refresh": token.refresh,
-	  "access": r.access
+          "name": token.name,
+	  "active": token.active,
 	};
       }
            )

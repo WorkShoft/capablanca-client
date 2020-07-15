@@ -37,12 +37,13 @@
     width: 30px;
 }
 
-.userIcon {
-    width: 288px;
-}
-.usernameButton {
+
+.infoButton {
     border: 0px;
+    background: transparent;
 }
+
+
 
 .userImg {
     width: 40px;

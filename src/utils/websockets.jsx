@@ -15,7 +15,6 @@ const gameSocket = (gameUuid, gameSetter) => {
 
   socket.onmessage = (e) => {
     const data = JSON.parse(e.data);
-    console.log(data);
     gameSetter(data);
   };
 

@@ -9,7 +9,7 @@ import {getLayoutFromFen} from '../utils/utils.jsx';
 
 import Piece from './Piece.jsx';
 import BoardDiv from '../styled/BoardDiv.jsx';
-import ResultModal from './ResultModal.jsx';
+import InfoModal from './InfoModal.jsx';
 import Spinner from './Spinner.jsx';
 
 import {gameSocket} from '../utils/websockets.jsx';
@@ -35,10 +35,12 @@ function Board(props){
   const [blacksUsername, setBlacksUsername] = useState("");  
   const authUsername = JSON.parse(window.localStorage.getItem("REACT_TOKEN_AUTH_KEY")).name;
 
+  const [whiteEloModal, setWhiteEloModal] = useState("");
+  const [blackEloModal, setBlackEloModal] = useState("");
+
   const [socket, setSocket] = useState({});
   const {uuid} = props.match.params;
   const notify = (detail) => toast(detail);
-
   
   /* Load game asynchronously */
   useEffect(() => {    
@@ -68,7 +70,15 @@ function Board(props){
     const {username: blacksUsername} = game.blacks_player || "???";  
 
     setWhitesUsername(whitesUsername);
-    setBlacksUsername(blacksUsername);    
+    setBlacksUsername(blacksUsername);
+
+    if (game.whites_player) {
+      setWhiteEloModal(<InfoModal id="whiteEloModal" info={game.whites_player.elo} />);
+    }
+
+    if(game.blacks_player) {
+      setBlackEloModal(<InfoModal id="blackEloModal" info={game.blacks_player.elo} />);
+    }
   }, [game, uuid]);
 
   
@@ -158,12 +168,12 @@ function Board(props){
     </div>
   );
 
-  const blackIcon = <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
+  const blackIcon = <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }} data-toggle="modal" data-target="#blackEloModal">
                       <img alt="Black player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
                       <span className={usernameClasses.blackUsernameClass}> {blacksUsername || "???"}</span> 
                     </h6>;
 
-  const whiteIcon = <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }}>
+  const whiteIcon = <h6 className="text-left mx-auto userIcon" style={{ width: boardSize }} data-toggle="modal" data-target="#whiteEloModal">
                       <img alt="White player" className="userImg" src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png"/>
                       <span className={usernameClasses.whiteUsernameClass}> {whitesUsername || "???"}</span>
                     </h6>;
@@ -175,27 +185,29 @@ function Board(props){
                      </div>;
 
   return <div uuid={game.uuid} id="mainDiv">
-                   <ToastContainer />
-                   <ResultModal id="resultModal" result={result} />           
-                   {(authUsername === whitesUsername && blackIcon) || whiteIcon}
-                   <br/>
-                   <div>
-                     {
-	               (loading === true &&
-	                <Spinner color={"#123abc"} size={boardSize} />
-	               )
-	                 ||
+           <ToastContainer />
+           <InfoModal id="resultModal" info={result} />
+           {whiteEloModal}
+           {blackEloModal}
+           {(authUsername === whitesUsername && blackIcon) || whiteIcon}
+           <br/>
+           <div>
+             {
+	       (loading === true &&
+	        <Spinner color={"#123abc"} size={boardSize} />
+	       )
+	         ||
 
-	               <BoardDiv id="board" boardSize={boardSize}>
-	                 {currentLayoutRows}
-	               </BoardDiv>
-                     }
+	       <BoardDiv id="board" boardSize={boardSize}>
+	         {currentLayoutRows}
+	       </BoardDiv>
+             }
 
-                   </div>
-                   <br/>	 	 
-                   {(authUsername === whitesUsername && whiteIcon) || blackIcon}
-                   {infoButton}
-                 </div>;
+           </div>
+           <br/>	 	 
+           {(authUsername === whitesUsername && whiteIcon) || blackIcon}
+           {infoButton}
+         </div>;
 }
 
 export default Board;

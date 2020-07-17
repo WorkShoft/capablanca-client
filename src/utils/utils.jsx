@@ -64,5 +64,10 @@ const getLayoutFromFen = (boardFen, flipped = false) => {
   return layout;
 }
 
+const removeUnderscore = (string) => string.replace("_", " ");
 
-export {getLayoutFromFen};
+export {getLayoutFromFen, removeUnderscore};
+
+
+
+  

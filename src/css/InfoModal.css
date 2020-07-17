@@ -1,7 +1,8 @@
 .gameInfoText, .gameInfoHeader {
     word-break: break-word;
     padding: 0px;
-    font-size: 11px;
+    font-size: 12px;
+    letter-spacing: 0.10em;
 }
 
 .col-lg-6, .col-lg-7 {
@@ -11,7 +12,6 @@
 .modal-body {
     padding: 20px 0px 0px 20px;
 }
-
 
 .modal-content {
     box-shadow: 1px 3px 7px 2px rgb(184, 201, 255);
